@@ -3,7 +3,6 @@ export interface WritingSuggestion {
   original: string;
   suggestion: string;
   explanation: string;
-  confidence: number;
 }
 
 export interface WritingAnalytics {

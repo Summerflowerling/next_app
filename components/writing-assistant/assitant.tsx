@@ -10,10 +10,11 @@ export function WritingAssistant() {
   const { text, setText, setSuggestions, analytics } = useWritingStore();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
+  const minInputText: number = 5;
 
   const handleGenerateSuggestions = async () => {
-    if (text.trim().length < 50) {
-      setError('Please provide at least 50 characters of input.');
+    if (text.trim().length < minInputText) {
+      setError(`$Please provide at least {minInputText} characters of input.`);
       return;
     }
     setError('');
@@ -45,7 +46,7 @@ export function WritingAssistant() {
         </div>
         <AiButton
           onClick={handleGenerateSuggestions}
-          disabled={isLoading || text.length < 50}
+          disabled={isLoading || text.length < minInputText}
         >
           {isLoading ? 'Generating...' : 'Get Suggestions'}
         </AiButton>

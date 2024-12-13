@@ -1,6 +1,7 @@
 import { HfInference } from '@huggingface/inference';
 import { WritingSuggestion } from '@/types/writing';
 import { WritingAnalytics } from '@/types/writing';
+import { AIConfig } from '@/ai_config';
 
 export class WritingAssistantService {
   private hf: HfInference;
@@ -10,16 +11,17 @@ export class WritingAssistantService {
   }
 
   async generateWritingSuggestions(text: string): Promise<WritingSuggestion[]> {
+    const { model, maxNewTokens, temperature } = AIConfig.writingAssistantAI;
     try {
       const response = await this.hf.textGeneration({
-        model: 'google/flan-t5-large',
+        model: model,
         inputs:
           `Analyze this text and provide professional writing suggestions. \n` +
           `Identify grammar issues, style improvements, and clarity enhancements. \n` +
           `Text: ${text}`,
         parameters: {
-          max_new_tokens: 250,
-          temperature: 0.7,
+          max_new_tokens: maxNewTokens,
+          temperature: temperature,
           return_full_text: false,
         },
       });
@@ -42,7 +44,6 @@ export class WritingAssistantService {
         original: original.trim(),
         suggestion: suggestion.trim(),
         explanation: explanation.trim(),
-        confidence: Math.random(), // Placeholder for confidence score
       };
     });
   }
