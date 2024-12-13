@@ -5,13 +5,13 @@ const NavBar = () => {
   return (
     <div className='flex bg-red-200 p-1'>
       <Link href='/' className='m-5'>
-        Ling
+        About Me
       </Link>
       <Link href='/user' className='m-5'>
-        User
+        My Art Gallery
       </Link>
       <Link href='/product' className='m-5'>
-        Product
+        Contact Me
       </Link>
     </div>
   );
